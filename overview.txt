@@ -39,3 +39,6 @@ Nội dung chi tiết:
 + userId int foreign key đến users(id)
 + token varchar(50)
 + createAt datetime
+
+02. Xây dựng cấu trúc thư mục và file
+
