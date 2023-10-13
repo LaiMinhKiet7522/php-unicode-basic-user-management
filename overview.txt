@@ -1,0 +1,41 @@
+Thực hành làm Module quản lý người dùng (Users) bao gồm các chức năng:
+
+Nhóm 1: Xác thực truy cập
+
+- Đăng nhập
+- Đăng ký
+- Đăng xuất
+- Quên mật khẩu
+- Kích hoạt tài khoản
+
+Nhóm 2: Quản lý người dùng
+
+- Xác thực người dùng đăng nhập
+- Thêm người dùng
+- Sửa người dùng
+- Xóa người dùng
+- Hiển thị danh sách người dùng
+- Phân trang
+- Tìm kiếm, lọc
+
+Nội dung chi tiết:
+
+01. Thiết kế Database
+
+- Bảng users:
++ id int primary key
++ email varchar(100)
++ fullname varchar(100)
++ phone varchar(20)
++ password varchar(50)
++ forgotToken varchar(50)
++ activeToken varchar(50)
++ status tinyint(1)
++ createAt datetime
++ updateAt datetime
+
+- Bảng login_token:
++ id int primary key
++ userId int foreign key đến users(id)
++ token varchar(50)
++ createAt datetime
