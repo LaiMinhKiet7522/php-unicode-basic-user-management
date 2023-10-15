@@ -45,3 +45,5 @@ Nội dung chi tiết:
 03. Code chức năng điều hướng Modules (Routes)
 
 04. Tích hợp giao diện Bootstrap
+
+05. Kết nối database và viết hàm xử lý database
