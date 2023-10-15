@@ -49,3 +49,7 @@ Nội dung chi tiết:
 05. Kết nối database và viết hàm xử lý database
 
 06. Viết các hàm xử lý session
+
+07. Thiết lập gửi mail
+user = kietminh070502@gmail.com
+password = pyfogqbjgpfzvxlo

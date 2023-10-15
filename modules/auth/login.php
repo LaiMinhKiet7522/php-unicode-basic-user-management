@@ -6,6 +6,7 @@ $data = [
     'pageTitle' => 'Đăng nhập hệ thống'
 ];
 layout('header-login', $data);
+// sendMail('laiminhkiet07052002@gmail.com', 'Test mail', 'Mail content');
 ?>
 <div class="row">
     <div class="col-6" style="margin: 20px auto;">
