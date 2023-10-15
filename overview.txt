@@ -47,3 +47,5 @@ Nội dung chi tiết:
 04. Tích hợp giao diện Bootstrap
 
 05. Kết nối database và viết hàm xử lý database
+
+06. Viết các hàm xử lý session

@@ -3,6 +3,7 @@ session_start();
 require_once "config.php";
 require_once "includes/functions.php";
 require_once "includes/connect.php";
+require_once "includes/session.php";
 $module = _MODULE_DEFAULT;
 $action = _ACTION_DEFAULT;
 if (!empty($_GET["module"])) {
