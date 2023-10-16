@@ -52,3 +52,84 @@ function sendMail($to, $subject, $content)
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+
+//Kiểm tra phương thức POST
+function isPost()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        return true;
+    }
+    return false;
+}
+
+//Kiểm tra phương thức GET
+function isGet()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        return true;
+    }
+    return false;
+}
+
+//Lấy giá trị phương thức POST, GET
+function getBody()
+{
+    $bodyArr = [];
+    // Xử lý chuỗi trước khi hiển thị ra
+    if (isGet()) {
+        if (!empty($_GET)) {
+            foreach ($_GET as $key => $value) {
+                $key = strip_tags($key);
+                if (is_array($value)) {
+                    $bodyArr[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
+                } else {
+                    $bodyArr[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+            }
+        }
+    }
+    if (isPost()) {
+        if (!empty($_POST)) {
+            foreach ($_POST as $key => $value) {
+                $key = strip_tags($key);
+                if (is_array($value)) {
+                    $bodyArr[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
+                } else {
+                    $bodyArr[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+            }
+        }
+    }
+    return $bodyArr;
+}
+
+//Validate các fields
+function isEmail($email)
+{
+    $checkEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+    return $checkEmail;
+}
+
+function isNumber($number, $range = [])
+{
+    // $range = ['min_range'=>1, 'max_range'=>100];
+    if (!empty($range)) {
+        $options = ['options' => $range];
+        $checkNumber = filter_var($number, FILTER_VALIDATE_INT, $options);
+    }else{
+        $checkNumber = filter_var($number, FILTER_VALIDATE_INT);
+    }
+    return $checkNumber;
+}
+
+function isFloat($number, $range = [])
+{
+    // $range = ['min_range'=>1, 'max_range'=>100];
+    if (!empty($range)) {
+        $options = ['options' => $range];
+        $checkNumber = filter_var($number, FILTER_VALIDATE_FLOAT, $options);
+    }else{
+        $checkNumber = filter_var($number, FILTER_VALIDATE_FLOAT);
+    }
+    return $checkNumber;
+}

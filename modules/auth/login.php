@@ -6,7 +6,18 @@ $data = [
     'pageTitle' => 'Đăng nhập hệ thống'
 ];
 layout('header-login', $data);
-// sendMail('laiminhkiet07052002@gmail.com', 'Test mail', 'Mail content');
+if(isPost()){
+    $body = getBody();
+    echo '<pre>';
+    print_r($body);
+    echo '</pre>';
+}
+$checkEmail = isEmail('minhkiet@gmail.com');
+var_dump($checkEmail);
+$checkInt = isNumber(100,['min_range'=>1, 'max_range'=>20]);
+var_dump($checkInt);
+$checkFloat = isFloat('a');
+var_dump($checkFloat);
 ?>
 <div class="row">
     <div class="col-6" style="margin: 20px auto;">
@@ -14,11 +25,11 @@ layout('header-login', $data);
         <form action="" method="post">
             <div class="form-group">
                 <label for="">Email</label>
-                <input type="text" class="form-control" name="" placeholder="Địa chỉ email...">
+                <input type="text" class="form-control" name="email" placeholder="Địa chỉ email...">
             </div>
             <div class="form-group">
                 <label for="">Mật khẩu</label>
-                <input type="password" class="form-control" name="" placeholder="Mật khẩu...">
+                <input type="password" class="form-control" name="password" placeholder="Mật khẩu...">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
             <hr>

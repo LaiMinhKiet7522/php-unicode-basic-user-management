@@ -53,3 +53,5 @@ Nội dung chi tiết:
 07. Thiết lập gửi mail
 user = kietminh070502@gmail.com
 password = pyfogqbjgpfzvxlo
+
+08. Viết các hàm filter, validate
