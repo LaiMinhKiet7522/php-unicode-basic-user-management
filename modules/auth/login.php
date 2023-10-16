@@ -6,18 +6,11 @@ $data = [
     'pageTitle' => 'Đăng nhập hệ thống'
 ];
 layout('header-login', $data);
-if(isPost()){
-    $body = getBody();
-    echo '<pre>';
-    print_r($body);
-    echo '</pre>';
-}
-$checkEmail = isEmail('minhkiet@gmail.com');
-var_dump($checkEmail);
-$checkInt = isNumber(100,['min_range'=>1, 'max_range'=>20]);
-var_dump($checkInt);
-$checkFloat = isFloat('a');
-var_dump($checkFloat);
+$password = '123456';
+// $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+$passwordHash ='$2y$10$YVCfeDN4Nifah9KCD1TIb.hpesGRC0wzjaoSbGbHjr.LkjLY2Zj0S';
+$checkPassword = password_verify($password, $passwordHash);
+var_dump($checkPassword);
 ?>
 <div class="row">
     <div class="col-6" style="margin: 20px auto;">
