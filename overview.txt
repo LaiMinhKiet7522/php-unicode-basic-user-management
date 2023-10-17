@@ -55,3 +55,8 @@ user = kietminh070502@gmail.com
 password = pyfogqbjgpfzvxlo
 
 08. Viết các hàm filter, validate
+
+09. Code chức năng đăng ký tài khoản
+- Đăng ký
+- Gửi email kích hoạt
+- Người dùng bấm vào link kích hoạt tài khoản (hoặc OTP)

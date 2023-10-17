@@ -116,7 +116,7 @@ function isNumber($number, $range = [])
     if (!empty($range)) {
         $options = ['options' => $range];
         $checkNumber = filter_var($number, FILTER_VALIDATE_INT, $options);
-    }else{
+    } else {
         $checkNumber = filter_var($number, FILTER_VALIDATE_INT);
     }
     return $checkNumber;
@@ -128,8 +128,40 @@ function isFloat($number, $range = [])
     if (!empty($range)) {
         $options = ['options' => $range];
         $checkNumber = filter_var($number, FILTER_VALIDATE_FLOAT, $options);
-    }else{
+    } else {
         $checkNumber = filter_var($number, FILTER_VALIDATE_FLOAT);
     }
     return $checkNumber;
+}
+
+function isPhone($phone)
+{
+    $checkFirstZero = false;
+    if ($phone[0] == '0') {
+        $checkFirstZero = true;
+        $phone = substr($phone, 1);
+    }
+    $checkNumberLast = false;
+    if (isNumber($phone) && strlen($phone) == 9) {
+        $checkNumberLast = true;
+    }
+    if ($checkFirstZero && $checkNumberLast) {
+        return true;
+    }
+    return false;
+}
+
+//Hàm tạo thông báo
+function getMessage($msg, $type = 'success')
+{
+    if (!empty($msg)) {
+        echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">';
+        echo  '<strong>';
+        echo $msg;
+        echo '</strong>';
+        echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+        echo '<span aria-hidden="true">&times;</span>';
+        echo '</button>';
+        echo '</div>';
+    }
 }

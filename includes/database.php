@@ -99,8 +99,12 @@ function getFirst($table, $field = '*', $condition = '')
 }
 
 //Lấy số dòng câu truy vấn
-function getRows()
+function getRows($sql)
 {
+    $statement = query($sql, [], true);
+    if (!empty($statement)) {
+        return $statement->rowCount();
+    }
 }
 
 //Lấy id vừa insert
