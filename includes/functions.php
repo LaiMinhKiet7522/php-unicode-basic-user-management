@@ -165,3 +165,22 @@ function getMessage($msg, $type = 'success')
         echo '</div>';
     }
 }
+
+//Hàm thông báo lỗi
+function form_error($fieldName, $errors, $beforeHtml = '', $afterHtml = '')
+{
+    return (!empty($errors[$fieldName])) ? $beforeHtml . reset($errors[$fieldName]) . $afterHtml : false;
+}
+
+//Hàm chuyển hướng
+function redirect($path)
+{
+    header("Location: $path");
+    exit();
+}
+
+//Hàm giữ lại dữ liệu cũ
+function old($fieldName, $oldData, $default = null)
+{
+    return (!empty($oldData[$fieldName])) ? $oldData[$fieldName] : $default;
+}

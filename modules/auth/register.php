@@ -17,7 +17,7 @@ if (isPost()) {
     if (empty(trim($body['fullname']))) {
         $errors['fullname']['required'] = 'Vui lòng nhập họ và tên';
     } else if (strlen(trim($body['fullname'])) < 5) {
-        $errors['fullname']['min'] = 'Họ tên phải lớn hơn bằng 5 ký tự';
+        $errors['fullname']['min'] = 'Họ tên phải từ 5 ký tự trở lên';
     }
 
     //Validate số điện thoại: Bắt buộc nhập, Đúng định dạng
@@ -66,15 +66,23 @@ if (isPost()) {
 
     //Kiểm tra mảng errors
     if (empty($errors)) {
+        //Không có lỗi xảy ra
         setFlashData('msg', 'Thành công');
         setFlashData('msg_type', 'success');
+        redirect('?module=auth&action=register');
     } else {
+        //Có lỗi xảy ra
         setFlashData('msg', 'Vui lòng kiểm tra dữ liệu nhập vào');
         setFlashData('msg_type', 'danger');
+        setFlashData('errors', $errors);
+        setFlashData('old', $body);
+        redirect('?module=auth&action=register'); //Load lại trang đăng ký
     }
 }
 $msg = getFlashData('msg');
 $msg_type = getFlashData('msg_type');
+$errors = getFlashData('errors');
+$old = getFlashData('old');
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -87,15 +95,18 @@ $msg_type = getFlashData('msg_type');
         <form action="" method="post">
             <div class="form-group">
                 <label>Họ và tên</label>
-                <input type="text" class="form-control" name="fullname" placeholder="Họ và tên...">
+                <input type="text" class="form-control" name="fullname" placeholder="Họ và tên..." value="<?php echo old('fullname', $old); ?>">
+                <?php echo form_error('fullname', $errors, '<span class="error">', '</span>'); ?>
             </div>
             <div class="form-group">
                 <label>Điện thoại</label>
-                <input type="text" class="form-control" name="phone" placeholder="Số điện thoại...">
+                <input type="text" class="form-control" name="phone" placeholder="Số điện thoại..." value="<?php echo old('phone', $old); ?>">
+                <?php echo form_error('phone', $errors, '<span class="error">', '</span>'); ?>
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="text" class="form-control" name="email" placeholder="Địa chỉ email...">
+                <input type="text" class="form-control" name="email" placeholder="Địa chỉ email..." value="<?php echo old('email', $old); ?>">
+                <?php echo form_error('email', $errors, '<span class="error">', '</span>'); ?>
             </div>
             <div class="form-group">
                 <label>Mật khẩu</label>
@@ -103,6 +114,7 @@ $msg_type = getFlashData('msg_type');
                     <input type="password" name="password" class="form-control" id="password" placeholder="Mật khẩu...">
                     <a href="javascript:;" class="input-group-text bg-transparent"><i style="width: 25px;" class='fa-solid fa-eye-slash'></i></a>
                 </div>
+                <?php echo form_error('password', $errors, '<span class="error">', '</span>'); ?>
             </div>
             <div class="form-group">
                 <label>Nhập lại mật khẩu</label>
@@ -110,6 +122,7 @@ $msg_type = getFlashData('msg_type');
                     <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Nhập lại mật khẩu...">
                     <a href="javascript:;" class="input-group-text bg-transparent"><i style="width: 25px;" class='fa-solid fa-eye-slash'></i></a>
                 </div>
+                <?php echo form_error('confirm_password', $errors, '<span class="error">', '</span>'); ?>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
             <hr>

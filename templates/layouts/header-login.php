@@ -10,7 +10,7 @@ if (!defined('_INCODE')) {
     <meta charset="utf8" />
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE; ?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE; ?>css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE; ?>css/style.css">
+    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE; ?>css/style.css?ver=<?php echo rand(); ?>">
 </head>
 
 <body>
