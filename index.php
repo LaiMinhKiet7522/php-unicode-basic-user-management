@@ -10,6 +10,8 @@ require_once 'includes/functions.php';
 require_once 'includes/connect.php';
 require_once 'includes/database.php';
 require_once 'includes/session.php';
+
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 $module = _MODULE_DEFAULT;
 $action = _ACTION_DEFAULT;
 if (!empty($_GET["module"])) {

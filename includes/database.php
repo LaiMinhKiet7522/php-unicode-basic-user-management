@@ -14,9 +14,8 @@ function query($sql, $data = [], $statementStatus = false)
             $query = $statement->execute($data);
         }
     } catch (Exception $e) {
-        echo $e->getMessage() . '<br/>';
-        echo 'File: ' . $e->getFile() . ' - Line: ' . $e->getLine();
-        echo '<br/>';
+        require_once "modules/errors/database.php"; //Import error
+        die(); //Dừng hết chương trình
     }
     if ($statementStatus && $query) {
         return $statement;
