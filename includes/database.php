@@ -55,19 +55,19 @@ function delete($table, $condition)
     return query($sql);
 }
 
-//Lấy dữ liệu từ câu lệnh SQL - Lấy tất cả bản ghi
+//Lấy dữ liệu từ câu lệnh SQL - Lấy tất cả
 function getRaw($sql)
 {
     $statement = query($sql, [], true);
     if (is_object($statement)) {
         $dataFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return  $dataFetch;
+        return $dataFetch;
     }
     return false;
 }
 
 //Lấy dữ liệu từ câu lệnh SQL - Lấy 1 bản ghi
-function getfirstRaw($sql)
+function firstRaw($sql)
 {
     $statement = query($sql, [], true);
     if (is_object($statement)) {
@@ -77,8 +77,8 @@ function getfirstRaw($sql)
     return false;
 }
 
-//Lấy tất cả dữ liệu theo table, field, condition
-function getRecord($table, $field = '*', $condition = '')
+//Lấy dữ liệu theo table, field, condition
+function get($table, $field = '*', $condition = '')
 {
     $sql = 'SELECT ' . $field . ' FROM ' . $table;
     if (!empty($condition)) {
@@ -87,17 +87,18 @@ function getRecord($table, $field = '*', $condition = '')
     return getRaw($sql);
 }
 
-//Lấy 1 dữ liệu theo table, field, condition
-function getFirst($table, $field = '*', $condition = '')
+function first($table, $field = '*', $condtion = '')
 {
     $sql = 'SELECT ' . $field . ' FROM ' . $table;
     if (!empty($condition)) {
         $sql .= ' WHERE ' . $condition;
     }
-    return getfirstRaw($sql);
+
+    return firstRaw($sql);
 }
 
-//Lấy số dòng câu truy vấn
+//function bổ sung
+//lấy số dòng câu truy vấn
 function getRows($sql)
 {
     $statement = query($sql, [], true);
@@ -107,6 +108,6 @@ function getRows($sql)
 }
 
 //Lấy id vừa insert
-function getInsertId()
+function insertId()
 {
 }
