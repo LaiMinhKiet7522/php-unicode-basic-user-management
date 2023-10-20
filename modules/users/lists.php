@@ -1,6 +1,8 @@
-<?php 
-if(!defined('_INCODE')){
+<?php
+if (!defined('_INCODE')) {
     die('Access denied');
 }
-echo 'Đây là list của module users <br />';
-?>
+//Kiểm tra trạng thái đăng nhập
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}

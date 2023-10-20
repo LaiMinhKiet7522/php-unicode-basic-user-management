@@ -184,3 +184,19 @@ function old($fieldName, $oldData, $default = null)
 {
     return (!empty($oldData[$fieldName])) ? $oldData[$fieldName] : $default;
 }
+
+//Hàm kiểm tra trạng thái đăng nhập
+function isLogin()
+{
+    $checkLogin = false;
+    if (getSession('loginToken')) {
+        $tokenLogin = getSession('loginToken');
+        $queryToken = firstRaw("SELECT userId FROM login_token WHERE token='$tokenLogin'");
+        if (!empty($queryToken)) {
+            $checkLogin = true;
+        } else {
+            removeSession('loginToken');
+        }
+    }
+    return $checkLogin;
+}

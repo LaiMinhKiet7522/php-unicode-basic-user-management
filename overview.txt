@@ -60,3 +60,5 @@ password = pyfogqbjgpfzvxlo
 - Đăng ký
 - Gửi email kích hoạt
 - Người dùng bấm vào link kích hoạt tài khoản (hoặc OTP)
+
+10. Code chức năng đăng nhập
