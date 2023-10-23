@@ -2,7 +2,13 @@
 if (!defined('_INCODE')) {
     die('Access denied');
 }
-//Kiểm tra trạng thái đăng nhập
-if (!isLogin()) {
-    redirect('?module=auth&action=login');
-}
+$data = [
+    'pageTitle' => 'Quản lý người dùng'
+];
+layout('header', $data);
+?>
+<div class="container">
+    Quản lý người dùng
+</div>
+<?php
+layout('footer');

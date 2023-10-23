@@ -68,3 +68,5 @@ password = pyfogqbjgpfzvxlo
 - Gửi email
 - Xác thực token, hiện form reset password
 - Xử lý submit reset password
+
+12.Code chức năng đăng xuất
