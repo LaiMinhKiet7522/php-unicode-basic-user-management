@@ -62,3 +62,9 @@ password = pyfogqbjgpfzvxlo
 - Người dùng bấm vào link kích hoạt tài khoản (hoặc OTP)
 
 10. Code chức năng đăng nhập
+
+11. Code chức năng quên mật khẩu
+- Tạo forgotToken
+- Gửi email
+- Xác thực token, hiện form reset password
+- Xử lý submit reset password
