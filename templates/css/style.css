@@ -14,3 +14,6 @@
   right: 0 !important;
   left: auto;
 }
+tr,td{
+  text-align: center;
+}

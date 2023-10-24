@@ -70,3 +70,5 @@ password = pyfogqbjgpfzvxlo
 - Xử lý submit reset password
 
 12.Code chức năng đăng xuất
+
+13. Code chức năng hiển thị danh sách người dùng
