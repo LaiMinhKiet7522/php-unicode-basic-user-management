@@ -6,8 +6,35 @@ $data = [
     'pageTitle' => 'Quản lý người dùng'
 ];
 layout('header', $data);
+
+//Xử lý phân trang
+
+$allUserNum = getRows("SELECT id FROM users");
+
+//1. Xác định được số lượng bản ghi trên 1 trang
+$perPage = 3; //Mỗi trang có 3 bản ghi
+
+//2. Tính số trang
+$maxPage = ceil($allUserNum / $perPage); //Có tổng cộng 2 trang để chứa 3 bản ghi trên 1 trang
+
+//3. Xử lý số trang dựa vào phương thức GET
+if (!empty(getBody()['page'])) {
+    $page = getBody()['page'];
+    if ($page < 1 || $page > $maxPage) {
+        $page = 1;
+    }
+} else {
+    $page = 1;
+}
+
+//4. Tính toán offset trong limit dựa vào biến $page
+// $page = 1 => offset = 0 = ($page-1)*$perPage = (1-1)*3 = 0
+// $page = 2 => offset = 3 = ($page-1)*$perPage = (2-1)*3 = 3
+// $page = 3 => offset = 6 = ($page-1)*$perPage = (3-1)*3 = 6
+$offset = ($page - 1) * $perPage;
+
 //Truy vấn lấy tất cả bản ghi
-$listAllUser = getRaw("SELECT * FROM users ORDER BY createAt");
+$listAllUser = getRaw("SELECT * FROM users ORDER BY createAt LIMIT $offset, $perPage");
 ?>
 <div class="container">
     <hr>
@@ -58,6 +85,37 @@ $listAllUser = getRaw("SELECT * FROM users ORDER BY createAt");
             ?>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <?php
+            if ($page > 1) {
+                $prevPage = $page - 1;
+                echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=users&page=' . $prevPage . '">Trước</a></li>';
+            }
+            ?>
+            <?php
+            $begin = $page - 2;
+            if ($begin < 1) {
+                $begin = 1;
+            }
+            $end = $page + 2;
+            if ($end > $maxPage) {
+                $end = $maxPage;
+            }
+            for ($index = $begin; $index <= $end; $index++) :
+            ?>
+                <li class="page-item <?php echo ($index == $page) ? 'active' : 'false'; ?>"><a class="page-link" href="<?php echo _WEB_HOST_ROOT . '?module=users&page=' . $index; ?>"><?php echo $index; ?></a></li>
+            <?php
+            endfor;
+            ?>
+            <?php
+            if ($page < $maxPage) {
+                $nextPage = $page + 1;
+                echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=users&page=' . $nextPage . '">Sau</a></li>';
+            }
+            ?>
+        </ul>
+    </nav>
     <hr>
 </div>
 <?php

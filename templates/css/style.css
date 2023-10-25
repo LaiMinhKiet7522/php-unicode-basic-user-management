@@ -17,3 +17,6 @@
 tr,td{
   text-align: center;
 }
+.pagination{
+  justify-content: end;
+}
