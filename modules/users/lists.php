@@ -7,9 +7,40 @@ $data = [
 ];
 layout('header', $data);
 
+//Xử lý lọc dữ liệu
+$filter = '';
+if (isGet()) {
+    $body = getBody();
+    if (!empty($body['status'])) {
+        $status = $body['status'];
+        if ($status == 2) {
+            $statusSql = 0;
+        } else {
+            $statusSql = $status;
+        }
+        if (!empty($filter) && strpos($filter, 'WHERE') >= 0) {
+            $operator = 'AND';
+        } else {
+            $operator = 'WHERE';
+        }
+        $filter .= "WHERE status=$statusSql";
+    }
+
+    //Xử lý lọc theo từ khóa
+    if (!empty($body['keyword'])) {
+        $keyword = $body['keyword'];
+        if (!empty($filter) && strpos($filter, 'WHERE') >= 0) {
+            $operator = 'AND';
+        } else {
+            $operator = 'WHERE';
+        }
+        $filter .= " $operator fullname LIKE '%$keyword%'";
+    }
+}
+
 //Xử lý phân trang
 
-$allUserNum = getRows("SELECT id FROM users");
+$allUserNum = getRows("SELECT id FROM users $filter");
 
 //1. Xác định được số lượng bản ghi trên 1 trang
 $perPage = 3; //Mỗi trang có 3 bản ghi
@@ -34,12 +65,46 @@ if (!empty(getBody()['page'])) {
 $offset = ($page - 1) * $perPage;
 
 //Truy vấn lấy tất cả bản ghi
-$listAllUser = getRaw("SELECT * FROM users ORDER BY createAt LIMIT $offset, $perPage");
+$listAllUser = getRaw("SELECT * FROM users $filter ORDER BY createAt LIMIT $offset, $perPage");
+
+//Xử lý Query String tìm kiếm với phân trang
+$queryString = null;
+if (!empty($_SERVER['QUERY_STRING'])) {
+    $queryString = $_SERVER['QUERY_STRING'];
+    $queryString = str_replace('module=users', '', $queryString);
+    $queryString = str_replace('&page=' . $page, '', $queryString);
+    $queryString = trim($queryString,'&');
+    $queryString = '&' . $queryString;
+}
 ?>
 <div class="container">
     <hr>
     <h3>Quản lý người dùng</h3>
-    <p style="text-align: end;"><a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp; Thêm người dùng</a></p>
+    <div class="container" style="display: flex; justify-content: space-between; padding: 0; margin-top: 20px;">
+        <div>
+            <p style="text-align: end; display: inline-block;"><a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp; Thêm người dùng</a></p>
+        </div>
+        <form action="" method="get" style="margin-bottom: 0;">
+        <input type="hidden" name="module" value="users">
+            <div class="row" style="width: 800px;">
+                <div class="col-4">
+                    <div class="form-group">
+                        <select name="status" class="form-control">
+                            <option value="0">Chọn trạng thái</option>
+                            <option value="1" <?php echo (!empty($status) && $status == 1) ? 'selected' : ''; ?>>Kích hoạt</option>
+                            <option value="2" <?php echo (!empty($status) && $status == 2) ? 'selected' : ''; ?>>Chưa kích hoạt</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <input type="search" name="keyword" class="form-control" placeholder="Từ khóa tìm kiếm..." value="<?php echo (!empty($keyword) ? $keyword : ''); ?>">
+                </div>
+                <div class="col-2" style="margin: 0;">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -90,7 +155,7 @@ $listAllUser = getRaw("SELECT * FROM users ORDER BY createAt LIMIT $offset, $per
             <?php
             if ($page > 1) {
                 $prevPage = $page - 1;
-                echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=users&page=' . $prevPage . '">Trước</a></li>';
+                echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=users' . $queryString . '&page=' . $prevPage . '">Trước</a></li>';
             }
             ?>
             <?php
@@ -104,14 +169,14 @@ $listAllUser = getRaw("SELECT * FROM users ORDER BY createAt LIMIT $offset, $per
             }
             for ($index = $begin; $index <= $end; $index++) :
             ?>
-                <li class="page-item <?php echo ($index == $page) ? 'active' : 'false'; ?>"><a class="page-link" href="<?php echo _WEB_HOST_ROOT . '?module=users&page=' . $index; ?>"><?php echo $index; ?></a></li>
+                <li class="page-item <?php echo ($index == $page) ? 'active' : 'false'; ?>"><a class="page-link" href="<?php echo _WEB_HOST_ROOT . '?module=users' . $queryString . '&page=' . $index; ?>"><?php echo $index; ?></a></li>
             <?php
             endfor;
             ?>
             <?php
             if ($page < $maxPage) {
                 $nextPage = $page + 1;
-                echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=users&page=' . $nextPage . '">Sau</a></li>';
+                echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=users' . $queryString . '&page=' . $nextPage . '">Sau</a></li>';
             }
             ?>
         </ul>

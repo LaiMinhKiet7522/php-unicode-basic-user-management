@@ -74,3 +74,5 @@ password = pyfogqbjgpfzvxlo
 13. Code chức năng hiển thị danh sách người dùng
 
 14. Thuật toán phân trang và xây dựng chức năng phân trang
+
+15.Code chức năng tìm kiếm và lọc dữ liệu
