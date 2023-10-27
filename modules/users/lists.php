@@ -70,11 +70,19 @@ $listAllUser = getRaw("SELECT * FROM users $filter ORDER BY createAt LIMIT $offs
 //Xử lý Query String tìm kiếm với phân trang
 $queryString = null;
 if (!empty($_SERVER['QUERY_STRING'])) {
-    $queryString = $_SERVER['QUERY_STRING'];
-    $queryString = str_replace('module=users', '', $queryString);
-    $queryString = str_replace('&page=' . $page, '', $queryString);
-    $queryString = trim($queryString,'&');
-    $queryString = '&' . $queryString;
+    $check = getBody();
+    if (!isset($check['status']) && !isset($check['keyword'])) {
+        $queryString = $_SERVER['QUERY_STRING'];
+        $queryString = str_replace('module=users', '', $queryString);
+        $queryString = str_replace('&page=' . $page, '', $queryString);
+        $queryString = trim($queryString, '&');
+    } else {
+        $queryString = $_SERVER['QUERY_STRING'];
+        $queryString = str_replace('module=users', '', $queryString);
+        $queryString = str_replace('&page=' . $page, '', $queryString);
+        $queryString = trim($queryString, '&');
+        $queryString = '&' . $queryString;
+    }
 }
 ?>
 <div class="container">
@@ -85,7 +93,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
             <p style="text-align: end; display: inline-block;"><a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp; Thêm người dùng</a></p>
         </div>
         <form action="" method="get" style="margin-bottom: 0;">
-        <input type="hidden" name="module" value="users">
+            <input type="hidden" name="module" value="users">
             <div class="row" style="width: 800px;">
                 <div class="col-4">
                     <div class="form-group">
