@@ -145,7 +145,7 @@ $msg_type = getFlashData('msg_type');
                         <td><?php echo $item['status'] == 1 ? '<span class="badge rounded-pill bg-success"
                                             style="font-size: 15px; color: #fff;">Đã kích hoạt</span>' : '<span class="badge rounded-pill bg-dark"
                                             style="font-size: 15px; color: #fff;">Chưa kích hoạt</span>'; ?></td>
-                        <td><a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a></td>
+                        <td><a href="<?php echo _WEB_HOST_ROOT . '?module=users&action=edit&id=' . $item['id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a></td>
                         <td><a href="#" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>
                     </tr>
                 <?php

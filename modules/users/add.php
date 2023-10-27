@@ -91,7 +91,7 @@ if (isPost()) {
         //Có lỗi xảy ra
         setFlashData('errors', $errors);
         setFlashData('old', $body);
-        redirect('?module=users&action=add'); //Load lại trang đăng ký
+        redirect('?module=users&action=add');
     }
 }
 $msg = getFlashData('msg');
