@@ -65,7 +65,7 @@ if (!empty(getBody()['page'])) {
 $offset = ($page - 1) * $perPage;
 
 //Truy vấn lấy tất cả bản ghi
-$listAllUser = getRaw("SELECT * FROM users $filter ORDER BY createAt LIMIT $offset, $perPage");
+$listAllUser = getRaw("SELECT * FROM users $filter ORDER BY createAt DESC LIMIT $offset, $perPage");
 
 //Xử lý Query String tìm kiếm với phân trang
 $queryString = null;
@@ -84,13 +84,15 @@ if (!empty($_SERVER['QUERY_STRING'])) {
         $queryString = '&' . $queryString;
     }
 }
+$msg = getFlashData('msg');
+$msg_type = getFlashData('msg_type');
 ?>
 <div class="container">
     <hr>
     <h3>Quản lý người dùng</h3>
     <div class="container" style="display: flex; justify-content: space-between; padding: 0; margin-top: 20px;">
         <div>
-            <p style="text-align: end; display: inline-block;"><a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp; Thêm người dùng</a></p>
+            <p style="text-align: end; display: inline-block;"><a href="?module=users&action=add" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp; Thêm người dùng</a></p>
         </div>
         <form action="" method="get" style="margin-bottom: 0;">
             <input type="hidden" name="module" value="users">
@@ -113,6 +115,9 @@ if (!empty($_SERVER['QUERY_STRING'])) {
             </div>
         </form>
     </div>
+    <?php
+    getMessage($msg, $msg_type);
+    ?>
     <table class="table table-bordered">
         <thead>
             <tr>
