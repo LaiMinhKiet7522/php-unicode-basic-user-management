@@ -76,3 +76,9 @@ password = pyfogqbjgpfzvxlo
 14. Thuật toán phân trang và xây dựng chức năng phân trang
 
 15.Code chức năng tìm kiếm và lọc dữ liệu
+
+16. Code chức năng thêm, xóa, sửa người dùng
+
+17.Tối ưu hóa ứng dụng
+
+http://localhost/php-unicode-basic-user-management/?module=users

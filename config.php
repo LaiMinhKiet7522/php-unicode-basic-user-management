@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 //File này chứa các hằng số cấu hình
 const _MODULE_DEFAULT = 'home'; //Module mặc định
 const _ACTION_DEFAULT = 'lists'; //Action mặc định
@@ -19,3 +20,6 @@ const _USER = 'root';
 const _PASSWORD = '';
 const _DB = 'php_online';
 const _DRIVER = 'mysql';
+
+//Thiết lập số lượng bản ghi hiển thị cho phân trang
+const _PER_PAGE = 3;

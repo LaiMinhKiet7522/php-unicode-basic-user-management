@@ -18,7 +18,7 @@ if (isPost()) {
         $email = trim($body['email']);
         $password = trim($body['password']);
         //Truy vấn lấy thông tin user theo email
-        $userQuery = firstRaw("SELECT id,password FROM users WHERE email='$email'");
+        $userQuery = firstRaw("SELECT id,password FROM users WHERE email='$email' AND status='1'");
         if (!empty($userQuery)) {
             $userId = $userQuery['id'];
             $passwordHash = $userQuery['password'];
@@ -50,7 +50,7 @@ if (isPost()) {
                 setFlashData('old', $body);
             }
         } else {
-            setFlashData('msg', 'Email không tồn tại. Vui lòng kiểm tra lại!');
+            setFlashData('msg', 'Email không tồn tại hoặc chưa được kích hoạt. Vui lòng kiểm tra lại!');
             setFlashData('msg_type', 'danger');
         }
     } else {

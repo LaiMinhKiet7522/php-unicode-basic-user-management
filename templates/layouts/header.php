@@ -5,7 +5,12 @@ if (!defined('_INCODE')) {
 //Kiểm tra trạng thái đăng nhập
 if (!isLogin()) {
     redirect('?module=auth&action=login');
+}else{
+    $userId = isLogin()['userId'];
+    $userDetails = getUserInfo($userId);
 }
+saveActivity(); //Lưu lại hoạt động cuối cùng của user
+autoLRemoveTokenLogin();
 ?>
 <html>
 
@@ -21,7 +26,7 @@ if (!isLogin()) {
     <header>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="<?php echo _WEB_HOST_ROOT.'?module=users'; ?>">Unicode Academy</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,31 +34,15 @@ if (!isLogin()) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
+                            <a class="nav-link" href="<?php echo _WEB_HOST_ROOT.'?module=users'; ?>">Tổng quan</a>
                         </li>
                         <li class="nav-item dropdown profile">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Hi, Minh Kiệt
+                                Hi, <?php echo $userDetails['fullname']; ?>
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Thông tin cá nhân</a>
+                                <a class="dropdown-item" href="#">Đổi mật khẩu</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo _WEB_HOST_ROOT.'?module=auth&action=logout'; ?>">Đăng xuất</a>
                             </div>

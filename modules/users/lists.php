@@ -43,7 +43,7 @@ if (isGet()) {
 $allUserNum = getRows("SELECT id FROM users $filter");
 
 //1. Xác định được số lượng bản ghi trên 1 trang
-$perPage = 3; //Mỗi trang có 3 bản ghi
+$perPage = _PER_PAGE;
 
 //2. Tính số trang
 $maxPage = ceil($allUserNum / $perPage); //Có tổng cộng 2 trang để chứa 3 bản ghi trên 1 trang
